@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rubikon — audyt copy v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F2EF;--surface:#FDFBF9;--ink:#1c1917;--ink2:#44403c;--muted:#78716c;--faint:#a8a29e;--line:#e7e5e4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;font-weight:300;font-size:14px;line-height:1.6;color:var(--ink);background:var(--bg)}
+.wrap{max-width:1240px;margin:0 auto;padding:32px 20px 90px}
+h1,h2,h3,th,.inter{font-family:'Inter',sans-serif}
+header{background:var(--ink);color:#e7e5e4;border-radius:16px;padding:26px 28px}
+header h1{font-size:25px;font-weight:700;letter-spacing:-.02em}
+header p{color:#a8a29e;font-size:13.5px;margin-top:6px}
+/* stepper */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 10px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;text-align:left;font:inherit;transition:.15s}
+.step:hover{border-color:var(--ink)}
+.step .n{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.step .t{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;margin-top:2px}
+.step .d{font-size:12.5px;color:var(--muted)}
+.step.on{background:var(--ink);border-color:var(--ink)}
+.step.on .n{color:#a8a29e}.step.on .t{color:#fff}.step.on .d{color:#d6d3d1}
+.track{height:5px;background:#e7e5e4;border-radius:99px;overflow:hidden;margin-bottom:14px}
+.track i{display:block;height:100%;background:var(--ink);transition:width .3s ease}
+.why{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ink);border-radius:0 12px 12px 0;padding:14px 16px;margin-bottom:28px;font-size:13.5px;color:var(--ink2)}
+.why b{font-family:'Inter',sans-serif;font-weight:600}
+section{margin-bottom:34px}
+h2{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+th{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);background:#faf8f6}
+td{padding:12px 14px;border-bottom:1px solid #f2efec;vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.el{width:14%;font-family:'Inter',sans-serif;font-size:12px;font-weight:600}
+td.i1{width:24%;color:var(--muted)}
+td.i2{width:24%;color:var(--ink2)}
+td.i3{width:24%;color:var(--ink)}
+td.i3 strong{font-weight:600}
+td.rz{width:14%;font-size:12.5px;color:var(--ink2)}
+.del{text-decoration:line-through;color:var(--faint)}
+.hide{display:none}
+.pill{display:inline-block;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;padding:1px 7px;border-radius:999px;margin-top:5px;white-space:nowrap;background:#e7e5e4;color:var(--ink2)}
+.pill.kk{background:var(--ink);color:#fff}
+.pill.hi{background:#f7e3e5;color:#9b1c2a}
+.pill.md{background:#f5efe2;color:#8a6510}
+.steps-5,.steps-6{grid-template-columns:repeat(5,1fr)}
+.steps-6{grid-template-columns:repeat(6,1fr)}
+.c6 td.el{width:15%}.c6 td.i1{width:24%}.c6 td.i3{width:24%}.c6 td.rz{width:37%;font-size:13px}
+.c6 td.i3 strong{font-weight:600;font-size:14.5px}
+.c5 td.el{width:13%}.c5 td.i1{width:22%}.c5 td.i3{width:25%}.c5 td.rz{width:40%;font-size:13px}
+.c5 td.i3 strong{font-weight:600;font-size:14.5px}
+.alt{margin-top:7px;font-size:12.5px;color:var(--ink2);font-weight:400;border-top:1px dashed var(--line);padding-top:6px}
+.alt b{font-weight:600}
+.del2{margin-top:6px;font-size:12px;color:var(--faint);font-weight:400;text-decoration:line-through}
+code{font-size:12.5px;background:#efece9;padding:1px 5px;border-radius:4px}
+.step .d{font-size:12px}
+.find{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h3{font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;margin-bottom:5px}
+.card p{font-size:13.5px;color:var(--ink2)}
+.card .big{font-family:'Inter',sans-serif;font-size:26px;font-weight:700;line-height:1.1}
+.filters{display:flex;gap:6px;margin:12px 0}
+.filters button{font-family:'Inter',sans-serif;font-size:12px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;color:var(--ink2)}
+.filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.lv{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:1px 8px;border-radius:999px}
+.lv-low{background:#e7e5e4;color:#1F7A5A}
+.lv-mid{background:#f5efe2;color:#8a6510}
+.lv-high{background:#f7e3e5;color:#9b1c2a}
+.scroll{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:14px}
+.scroll table{border:0;border-radius:0}
+.scroll th{position:sticky;top:0;z-index:1}
+footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--faint)}
+@media (max-width:900px){.steps,.find{grid-template-columns:1fr}td.el,td.i1,td.i2,td.i3,td.rz{width:auto}section>table{display:block;overflow-x:auto}section>table tbody,section>table thead{min-width:720px;display:table;width:100%}.scroll table{min-width:660px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Rubikon — audyt copy</h1>
+  <p>Teksty interfejsu, historia zmian i test wszystkich 72 scenariuszy kalkulatora · 21.09.2026 · Chris Rocket</p>
+</header>
+
+<div class="steps steps-6">
+  <button class="step" data-i="1"><div class="n">Iteracja 1</div><div class="t">Stan z kodu</div><div class="d">To, co wygenerował Claude Code</div></button>
+  <button class="step" data-i="2"><div class="n">Iteracja 2</div><div class="t">Propozycje Toma</div><div class="d">Spójność, zwięzłość, jeden głos</div></button>
+  <button class="step" data-i="3"><div class="n">Iteracja 3</div><div class="t">Nacisk na konwersję</div><div class="d">Po uwagach Krzysztofa, żaden ekran nie kończy pochwałą</div></button>
+  <button class="step" data-i="4"><div class="n">Iteracja 4</div><div class="t">Po przeklikaniu</div><div class="d">Poprawki z realnych przejść: hierarchia, łamanie, warunki</div></button>
+  <button class="step" data-i="5"><div class="n">Iteracja 5</div><div class="t">Audyt miałkich treści</div><div class="d">Zdania, które nic nie wnoszą</div></button>
+  <button class="step on" data-i="6"><div class="n">Iteracja 6</div><div class="t">Test na użytkowniku</div><div class="d">Co wyłapał prawdziwy telefon, a nie audyt</div></button>
+</div>
+<div class="track"><i style="width:100%"></i></div>
+<div class="why" id="whyBox"></div>
+<section class="c6">
+  <h2>Iteracja 6 — test na użytkowniku</h2>
+  <div class="why"><b>Skąd ta iteracja.</b> Copy przeszło pięć przebiegów: generację, przegląd językowy, przestawienie pod konwersję, poprawki z przeklikanych ścieżek i audyt miałkich treści. Wszystkie robione przy biurku, na dużym ekranie, przez dwie osoby znające produkt na wylot. Potem Asia otworzyła kalkulator na własnym telefonie, bez żadnego kontekstu, i zatrzymała się na jednym zdaniu. <b>Dziesięć sekund prawdziwego użytkownika wyłapało to, czego nie wyłapało pięć przebiegów audytu</b> — i to jest jedyny wniosek z tego dokumentu, który warto zapamiętać.</div>
+  <table>
+    <thead><tr><th>Element</th><th>Było po iteracji 5</th><th>Iteracja 6</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Zdanie nad CTA — ryzyko niskie <span class="pill hi">wyłapane na telefonie</span></td><td class="i1">Tę kwotę dzisiaj nosisz na własnym bilansie. Sprawdź, ile kosztuje przeniesienie jej na polisę.</td><td class="i3"><strong>Dziś tę stratę pokrywasz sam. Sprawdź, ile kosztuje przeniesienie jej na polisę.</strong></td><td class="rz">Zdanie z iteracji 5, przepuszczone przez dwa przebiegi audytu i zaakceptowane przez Krzysztofa. Wystarczyło, że ktoś otworzył kalkulator na telefonie i przeczytał go bez kontekstu. <b>„Bilans” to konkretny dokument księgowy, a strata z incydentu, który się nie wydarzył, nie stoi w żadnym bilansie</b> — dla właściciela firmy albo kogoś z finansów to błąd merytoryczny w narzędziu, które ma budować wiarygodność liczbami. Do tego metafora się rozjeżdża: „nosisz” to czynność fizyczna, „bilans” to dokument. Nowe zdanie nie ma metafory, a słowo „stratę” odbija się od nagłówka nad kwotą.</td></tr>
+    <tr><td class="el">Czynnik — IT <span class="pill md">poprawione</span></td><td class="i1">IT: incydent u Ciebie zatrzymuje systemy klientów i uruchamia kary z umów</td><td class="i3"><strong>IT: incydent u Ciebie zatrzymuje systemy klientów i naraża Cię na kary umowne</strong></td><td class="rz">„Kary z umów” nie są terminem. Po polsku mówi się kary umowne. Ten sam typ błędu co wyżej, tylko w mniejszej skali: słowo użyte wbrew swojemu znaczeniu w tekście adresowanym do firm.</td></tr>
+    <tr><td class="el">Okno „Skąd te liczby?” <span class="pill md">poprawione</span></td><td class="i1">…typowy koszt incydentu dla firmy tej wielkości, przeliczony przez branżę i MFA</td><td class="i3"><strong>…typowy koszt incydentu dla firmy tej wielkości, skorygowany o branżę i MFA</strong></td><td class="rz">„Przeliczony przez” sugeruje, że branża coś liczy. To jedyne miejsce, w którym tłumaczymy metodologię, więc precyzja słowa waży tam najwięcej.</td></tr>
+    <tr><td class="el">Zdanie nad CTA — ryzyko umiarkowane <span class="pill kk">decyzja KK</span></td><td class="i1">Nie ma zabezpieczeń bez luk. Polisa to ostatnia warstwa, która działa wtedy, gdy poprzednie zawiodą.</td><td class="i3"><strong>Bez zmian</strong></td><td class="rz">Zgłosiłem to zdanie jako możliwy zgrzyt: mówi o „ostatniej warstwie” i „poprzednich”, choć o warstwach nie było wcześniej mowy. <b>Krzysztof zdecydował inaczej</b> — metafora warstw jest w bezpieczeństwie na tyle zadomowiona, że czytelnik nie potrzebuje wprowadzenia. Zostaje w oryginale.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="c5">
+  <h2>Iteracja 5 — audyt miałkich treści <span class="pill kk">wdrożone</span></h2>
+  <div class="why"><b>Co sprawdziłem:</b> przeczytałem każdy string z <code>src/lib/copy.ts</code> i <code>src/lib/risk.ts</code> — 61 tekstów widocznych dla użytkownika. Kryterium: zdanie zostaje, jeśli wnosi nową informację albo konsekwencję dla firmy. Wylatuje, jeśli powtarza to, co już jest na ekranie, chwali, albo brzmi mądrze i nic nie znaczy. Trzynaście tekstów nie przeszło. <b>Wszystkie trzynaście zatwierdzone i wdrożone 21.09.2026.</b></div>
+  <table>
+    <thead><tr><th>Element</th><th>Teraz w kodzie</th><th>Propozycja</th><th>Dlaczego obecny jest słaby</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Zdanie nad CTA — ryzyko umiarkowane <span class="pill hi">miałkie</span></td><td class="i1">Część ryzyka usuniesz w kilka tygodni. Reszty nie usuniesz i to właśnie pokrywa polisa.</td><td class="i3"><strong>Nie ma zabezpieczeń bez luk. Polisa to ostatnia warstwa, która działa wtedy, gdy poprzednie zawiodą.</strong><span class="pill kk">v2 po uwagach KK</span><div class="alt">Wariant ostrzejszy: <b>„Każde zabezpieczenie zostawia lukę. Hakerowi wystarczy jedna, rachunek przychodzi do Ciebie.”</b></div><div class="del2">v1 odrzucone: „Zabezpieczenia poprawisz w kilka tygodni. Atak nie zaczeka, aż skończysz.”</div></td><td class="rz">Pierwotne zdanie stało na powtórzeniu „usuniesz — nie usuniesz”. Moja v1 poszła w pośpiech („nie zaczeka”), a narracja ma być inna: <b>luka zostaje zawsze, więc polisa nie jest dodatkiem, tylko ostatnią warstwą zabezpieczeń</b>. To argument, który kupujący B2B zna z bezpieczeństwa (obrona warstwowa), więc nie brzmi jak sprzedaż polisy, tylko jak domknięcie systemu. Bez słowa „haker”, bo ono pada już w czynnikach nad tym zdaniem.</td></tr>
+    <tr><td class="el">Nota pod kwotą <span class="pill hi">miałkie</span></td><td class="i1">Tyle kosztuje jeden poważny incydent. Polisa to ułamek tej kwoty.</td><td class="i3"><strong>Polisa kosztuje ułamek tej kwoty.</strong></td><td class="rz">Pierwsze zdanie powtarza nagłówek nad kwotą („Strata przy jednym incydencie”) w odległości czterdziestu pikseli. Druga połowa niesie całą wartość i broni się sama.</td></tr>
+    <tr><td class="el">Zdanie nad CTA — ryzyko niskie <span class="pill hi">miałkie</span></td><td class="i1">Podstawy działają i dobrze. Sprawdź, ile kosztuje ochrona tych 250 tys. zł.</td><td class="i3"><strong>Tę kwotę dzisiaj nosisz na własnym bilansie. Sprawdź, ile kosztuje przeniesienie jej na polisę.</strong></td><td class="rz">„Podstawy działają i dobrze” to pochwała bez treści — nie wiadomo, które podstawy, a „i dobrze” brzmi jak klepnięcie po plecach. Mieliśmy nie kończyć pochwałą, a tu zaczynamy od gratulacji. Propozycja nie zderza się z dopiskiem o skali, bo mówi o czym innym: kto dziś płaci za ten scenariusz.</td></tr>
+    <tr><td class="el">Ekran liczenia, trzeci komunikat <span class="pill hi">miałkie</span></td><td class="i1">Przygotowujemy wynik…</td><td class="i3"><strong>Przeliczamy na złote po kursie NBP…</strong></td><td class="rz">Klasyczny pusty loader. Dwa pierwsze komunikaty budują wiarygodność (dane z branży, koszt incydentu), trzeci ją zjada. Kurs NBP jest prawdziwy i siedzi w źródłach, więc to jedno słowo więcej dowodu — a w nagraniu ładny detal.</td></tr>
+    <tr><td class="el">Tytuł formularza <span class="pill md">do poprawy</span></td><td class="i1">Porozmawiajmy o ochronie</td><td class="i3"><strong>Wycena polisy dla Twojej firmy</strong></td><td class="rz">Korpo-uprzejmość, która niczego nie obiecuje. W kroku, w którym ktoś ma zostawić telefon, mówimy „porozmawiajmy” zamiast powiedzieć, co dostanie w zamian.</td></tr>
+    <tr><td class="el">Przycisk w formularzu <span class="pill md">do poprawy</span></td><td class="i1">Poproś o kontakt</td><td class="i3"><strong>Chcę wycenę</strong></td><td class="rz">„Poproś” stawia użytkownika w roli proszącego o łaskę. To on tu oddaje dane — powinien mówić, czego chce, nie prosić.</td></tr>
+    <tr><td class="el">Tytuł potwierdzenia <span class="pill md">do poprawy</span></td><td class="i1">Dziękujemy, jesteśmy w kontakcie</td><td class="i3"><strong>Zgłoszenie przyjęte</strong></td><td class="rz">„Jesteśmy w kontakcie” opisuje stan, który jeszcze nie zaistniał — nikt się jeszcze nie odezwał. Brzmi jak grzecznościowe pożegnanie, a ma potwierdzać fakt.</td></tr>
+    <tr><td class="el">Czynnik — Finanse <span class="pill md">do poprawy</span></td><td class="i1">Finanse: dane o wysokiej wartości dla przestępców</td><td class="i3"><strong>Finanse: pieniądze i dane klientów w jednym systemie, dokładnie to, po co przychodzą hakerzy</strong><span class="pill kk">v2 po uwagach KK</span><div class="alt">Wariant mocniejszy: <b>„Finanse: pieniądze i dane klientów w jednym systemie, więc atak hakerski opłaca się tu najbardziej”</b> — patrz uwaga o superlatywie obok.</div></td><td class="rz">Oryginał mówił o przestępcach, nie o konsekwencji dla firmy. W v1 zostało niedopowiedzenie: „opłaca się” — komu. Teraz sprawca jest nazwany i wynika z tego, że to Ty jesteś celem. <b>Uwaga do wariantu mocniejszego:</b> „najbardziej” zderza się z naszymi własnymi liczbami, bo mnożnik ochrony zdrowia (1,33) jest wyższy niż finansów (1,26). Kto porówna dwa przejścia, zobaczy sprzeczność. Wersja rekomendowana nie używa superlatywu i jest bezpieczna.</td></tr>
+    <tr><td class="el">Czynnik — 1000+ pracowników <span class="pill md">do poprawy</span></td><td class="i1">Ponad tysiąc pracowników: skala mnoży koszt incydentu</td><td class="i3"><strong>Ponad tysiąc pracowników: jedno przejęte konto otwiera hakerom wszystkie działy naraz</strong><span class="pill kk">v2 po uwagach KK</span></td><td class="rz">Oryginał powtarzał to, co użytkownik przeczytał już w kwocie. Teraz jest sprawca i mechanizm: jedno konto, wszystkie działy. „Przejęte konto” zamiast „przejętego dostępu”, bo konto każdy ma i każdy je sobie wyobrazi.</td></tr>
+    <tr><td class="el">Czynnik — Usługi <span class="pill md">do poprawy</span></td><td class="i1">Usługi: dane klientów i faktury to częsty cel</td><td class="i3"><strong>Usługi: dane klientów i faktury to częsty cel hakerów</strong><span class="pill kk">wersja KK</span><div class="del2">v1 odrzucone: „Usługi: podmieniona faktura wychodzi do klienta z Twojej skrzynki”</div></td><td class="rz">Słabością oryginału było „częsty cel” bez sprawcy. Jedno słowo to naprawia i zostawia wers krótki, co ma znaczenie, bo na ekranie wyniku czynniki stoją jeden pod drugim. Moja v1 była konkretniejsza, ale dwa razy dłuższa i przeciągała trzeci wers.</td></tr>
+    <tr><td class="el">Czynnik — IT <span class="pill md">do poprawy</span></td><td class="i1">IT: incydent u Ciebie uderza też w klientów</td><td class="i3"><strong>IT: incydent u Ciebie zatrzymuje systemy klientów i uruchamia kary z umów</strong></td><td class="rz">„Uderza” jest miękkie i można je podstawić pod dowolną branżę. Kary umowne to koszt, który czytelnik z IT rozpozna natychmiast.</td></tr>
+    <tr><td class="el">Zdanie nad CTA — ryzyko wysokie <span class="pill md">do poprawy</span></td><td class="i1">Jeden atak może zatrzymać firmę na tygodnie. Zacznij od MFA i zabezpiecz koszty, których nie unikniesz.</td><td class="i3"><strong>Jeden atak potrafi zatrzymać firmę na tygodnie. Włącz MFA, a koszt przestoju przenieś na polisę.</strong></td><td class="rz">„Może” osłabia najmocniejszy z trzech wariantów, a „koszty, których nie unikniesz” to abstrakcja w zdaniu, które ma pchnąć palec na przycisk. „Potrafi” jest mocniejsze i dalej prawdziwe, a „koszt przestoju” to rzecz, którą widać na fakturze.</td></tr>
+    <tr><td class="el">Lead na ekranie startowym <span class="pill">drobne</span></td><td class="i1">Trzy pytania, pół minuty, bez podawania danych. Wynik od razu.</td><td class="i3"><strong>Trzy pytania, pół minuty, bez podawania danych.</strong></td><td class="rz">„Pół minuty” i „wynik od razu” mówią to samo dwa razy, a „bez podawania danych” już obiecuje brak bramki mailowej. Zdanie skraca się bez straty.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="c5">
+  <h2>Skąd wzięło się zdanie o umiarkowanym ryzyku</h2>
+  <div class="why">Powstało w iteracji 3, kiedy naprawialiśmy warianty kończące się pochwałą. Low i High dostały wtedy konkret — kwotę i MFA. Mid nie miał własnego haka, bo „umiarkowany” to z definicji stan pośredni, więc napisałem zdanie <em>o samej kategorii</em> zamiast o firmie. Tak powstaje miałkość: opisujesz etykietę, nie sytuację. Test na to jest jednozdaniowy — <b>czy po zamianie „polisa” na „nasz produkt” zdanie nadal brzmi sensownie w dowolnej branży?</b> Jeśli tak, jest za ogólne. Przepuściłem przez ten test wszystkie trzy warianty i formularz.</div>
+</section>
+
+<section class="c5">
+  <h2>Zasada: kiedy pada słowo „haker”</h2>
+  <div class="why">Słowo działa, bo zamienia statystykę w człowieka z intencją — liczby się czyta, ludzi się boi. Traci moc przez powtórzenie. <b>Limit: najwyżej dwa razy na jednym ekranie.</b> Po zmianach „haker” siedzi w czynnikach branży (Finanse, Usługi) i wielkości (1000+), a czynniki MFA mówią o włamaniu i przejętej skrzynce. Najgorszy możliwy układ to Finanse + 1000+ = dwa wystąpienia, więc limit jest utrzymany. Zdanie nad przyciskiem zostaje bez „hakera” celowo: czynniki nazywają sprawcę, zdanie ma wyciągnąć wniosek, a nie wywołać go trzeci raz.</div>
+</section>
+
+<section class="c5">
+  <h2>Decyzje otwarte — branding</h2>
+  <table>
+    <thead><tr><th>Temat</th><th>Stan teraz</th><th>Pomysł / propozycja</th><th>Ocena i warunek</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Czerwony przycisk CTA <span class="pill kk">pomysł KK</span></td><td class="i1">Przycisk granatowy, czerwień zarezerwowana dla poziomu „wysokie”</td><td class="i3"><strong>Czerwień jako kolor akcji: „Sprawdź ryzyko”, „Zabezpiecz się”, „Chcę wycenę”</strong></td><td class="rz"><b>Dobry instynkt, pod jednym warunkiem.</b> Strona jest w całości granatowo-błękitna, więc granatowy przycisk siedzi w tej samej rodzinie co logo, nagłówek i obwódki — nie wyskakuje. Czerwień wyskakuje natychmiast. Ale czerwień może na stronie znaczyć tylko jedną rzecz. Dziś znaczy „zagrożenie” (poziom wysoki), a miałaby znaczyć „kliknij”. Przy wyniku wysokim oba stanęłyby obok siebie i oko nie odróżni ostrzeżenia od akcji. <b>Warunek: odbieramy czerwień odznace poziomu</b> (wysoki = granatowa odznaka z czerwoną kropką albo czerwonym samym tekstem), <b>a pełną czerwień dostaje wyłącznie przycisk</b>. Wtedy na każdym z pięciu ekranów jest dokładnie jedna czerwona rzecz i jest nią to, w co ma kliknąć. Koszt: jeden token koloru, kilka minut. W nagraniu czerwony przycisk czyta się lepiej niż granatowy.</td></tr>
+    <tr><td class="el">Kotwica pionowa <span class="pill kk">decyzja KK</span></td><td class="i1">Karta przyklejona do góry, pod nią pustka</td><td class="i3"><strong>Ekran z kwotą wyśrodkowany w oknie, jego górna krawędź wyznacza stałe <code>padding-top</code> dla wszystkich wcześniejszych ekranów</strong></td><td class="rz">Góra nie drgnie ani razu przez całe przejście, a kompozycja jest wyśrodkowana zamiast przyklejonej. Do zrobienia razem z copy, w jednym przebiegu.</td></tr>
+    <tr><td class="el">Trzy okna modalne</td><td class="i1">Formularz, potwierdzenie i „Skąd te liczby?” — nieprzejrzane</td><td class="i3"><strong>Do przejrzenia po zamknięciu copy</strong></td><td class="rz">Copy formularza i potwierdzenia jest już w tabeli wyżej. Zostaje warstwa wizualna: szerokość, odstępy, przycisk zamykania, zachowanie na telefonie.</td></tr>
+    <tr><td class="el">Logo i wskaźnik ryzyka</td><td class="i1">Wersja robocza z pierwszego przebiegu</td><td class="i3"><strong>Przerysowanie logo, dopracowanie wskaźnika i odstępów</strong></td><td class="rz">Ostatni etap, po zatwierdzeniu treści i układu.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Test scenariuszy — wszystkie 72 kombinacje</h2>
+  <div class="find">
+    <div class="card"><h3>Rozkład poziomów</h3><p class="big">16 / 34 / 22</p><p>Low / Mid / High. Low jest osiągalne, więc mechanika działa poprawnie.</p></div>
+    <div class="card"><h3>Martwy wariant w kodzie</h3><p class="big">High + MFA</p><p>Przy „Tak, wszędzie” maksimum to 6 punktów, a High zaczyna się od 8. To zdanie nigdy się nie pokaże — trzeba je zastąpić wariantem „High + częściowo” (4 przypadki).</p></div>
+    <div class="card"><h3>Niespójność do nazwania</h3><p class="big">Low = 12,3 mln</p><p>Handel, 1000+, MFA wszędzie: poziom „niski”, kwota ogromna. Poziom mierzy higienę, kwota ekspozycję — copy musi to rozdzielić.</p></div>
+  </div>
+  <div class="filters">
+    <button class="on" data-f="all">Wszystkie (72)</button>
+    <button data-f="low">Low (16)</button>
+    <button data-f="mid">Mid (34)</button>
+    <button data-f="high">High (22)</button>
+  </div>
+  <div class="scroll">
+  <table id="matrix">
+    <thead><tr><th>Branża</th><th>Pracownicy</th><th>MFA</th><th>Punkty</th><th>Poziom</th><th>Kwota</th></tr></thead>
+    <tbody>
+<tr data-level="low"><td>Finanse i ubezpieczenia</td><td>1–49</td><td>Tak, wszędzie</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">214 tys. zł</td></tr>
+<tr data-level="mid"><td>Finanse i ubezpieczenia</td><td>1–49</td><td>Tylko częściowo</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">252 tys. zł</td></tr>
+<tr data-level="high"><td>Finanse i ubezpieczenia</td><td>1–49</td><td>Nie lub nie wiem</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">290 tys. zł</td></tr>
+<tr data-level="mid"><td>Finanse i ubezpieczenia</td><td>50–249</td><td>Tak, wszędzie</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,5 mln zł</td></tr>
+<tr data-level="mid"><td>Finanse i ubezpieczenia</td><td>50–249</td><td>Tylko częściowo</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,8 mln zł</td></tr>
+<tr data-level="high"><td>Finanse i ubezpieczenia</td><td>50–249</td><td>Nie lub nie wiem</td><td class="num">9</td><td><span class="lv lv-high">High</span></td><td class="num">2,0 mln zł</td></tr>
+<tr data-level="mid"><td>Finanse i ubezpieczenia</td><td>250–999</td><td>Tak, wszędzie</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">7,0 mln zł</td></tr>
+<tr data-level="high"><td>Finanse i ubezpieczenia</td><td>250–999</td><td>Tylko częściowo</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">8,2 mln zł</td></tr>
+<tr data-level="high"><td>Finanse i ubezpieczenia</td><td>250–999</td><td>Nie lub nie wiem</td><td class="num">10</td><td><span class="lv lv-high">High</span></td><td class="num">9,4 mln zł</td></tr>
+<tr data-level="mid"><td>Finanse i ubezpieczenia</td><td>1000+</td><td>Tak, wszędzie</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">20,3 mln zł</td></tr>
+<tr data-level="high"><td>Finanse i ubezpieczenia</td><td>1000+</td><td>Tylko częściowo</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">23,9 mln zł</td></tr>
+<tr data-level="high"><td>Finanse i ubezpieczenia</td><td>1000+</td><td>Nie lub nie wiem</td><td class="num">10</td><td><span class="lv lv-high">High</span></td><td class="num">27,5 mln zł</td></tr>
+<tr data-level="low"><td>Ochrona zdrowia</td><td>1–49</td><td>Tak, wszędzie</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">226 tys. zł</td></tr>
+<tr data-level="mid"><td>Ochrona zdrowia</td><td>1–49</td><td>Tylko częściowo</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">266 tys. zł</td></tr>
+<tr data-level="high"><td>Ochrona zdrowia</td><td>1–49</td><td>Nie lub nie wiem</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">306 tys. zł</td></tr>
+<tr data-level="mid"><td>Ochrona zdrowia</td><td>50–249</td><td>Tak, wszędzie</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,6 mln zł</td></tr>
+<tr data-level="mid"><td>Ochrona zdrowia</td><td>50–249</td><td>Tylko częściowo</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,9 mln zł</td></tr>
+<tr data-level="high"><td>Ochrona zdrowia</td><td>50–249</td><td>Nie lub nie wiem</td><td class="num">9</td><td><span class="lv lv-high">High</span></td><td class="num">2,1 mln zł</td></tr>
+<tr data-level="mid"><td>Ochrona zdrowia</td><td>250–999</td><td>Tak, wszędzie</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">7,3 mln zł</td></tr>
+<tr data-level="high"><td>Ochrona zdrowia</td><td>250–999</td><td>Tylko częściowo</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">8,6 mln zł</td></tr>
+<tr data-level="high"><td>Ochrona zdrowia</td><td>250–999</td><td>Nie lub nie wiem</td><td class="num">10</td><td><span class="lv lv-high">High</span></td><td class="num">9,9 mln zł</td></tr>
+<tr data-level="mid"><td>Ochrona zdrowia</td><td>1000+</td><td>Tak, wszędzie</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">21,5 mln zł</td></tr>
+<tr data-level="high"><td>Ochrona zdrowia</td><td>1000+</td><td>Tylko częściowo</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">25,3 mln zł</td></tr>
+<tr data-level="high"><td>Ochrona zdrowia</td><td>1000+</td><td>Nie lub nie wiem</td><td class="num">10</td><td><span class="lv lv-high">High</span></td><td class="num">29,1 mln zł</td></tr>
+<tr data-level="low"><td>Produkcja i przemysł</td><td>1–49</td><td>Tak, wszędzie</td><td class="num">3</td><td><span class="lv lv-low">Low</span></td><td class="num">187 tys. zł</td></tr>
+<tr data-level="mid"><td>Produkcja i przemysł</td><td>1–49</td><td>Tylko częściowo</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">220 tys. zł</td></tr>
+<tr data-level="mid"><td>Produkcja i przemysł</td><td>1–49</td><td>Nie lub nie wiem</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">253 tys. zł</td></tr>
+<tr data-level="low"><td>Produkcja i przemysł</td><td>50–249</td><td>Tak, wszędzie</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">1,3 mln zł</td></tr>
+<tr data-level="mid"><td>Produkcja i przemysł</td><td>50–249</td><td>Tylko częściowo</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,5 mln zł</td></tr>
+<tr data-level="high"><td>Produkcja i przemysł</td><td>50–249</td><td>Nie lub nie wiem</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">1,8 mln zł</td></tr>
+<tr data-level="mid"><td>Produkcja i przemysł</td><td>250–999</td><td>Tak, wszędzie</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">6,1 mln zł</td></tr>
+<tr data-level="mid"><td>Produkcja i przemysł</td><td>250–999</td><td>Tylko częściowo</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">7,2 mln zł</td></tr>
+<tr data-level="high"><td>Produkcja i przemysł</td><td>250–999</td><td>Nie lub nie wiem</td><td class="num">9</td><td><span class="lv lv-high">High</span></td><td class="num">8,2 mln zł</td></tr>
+<tr data-level="mid"><td>Produkcja i przemysł</td><td>1000+</td><td>Tak, wszędzie</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">17,8 mln zł</td></tr>
+<tr data-level="mid"><td>Produkcja i przemysł</td><td>1000+</td><td>Tylko częściowo</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">20,9 mln zł</td></tr>
+<tr data-level="high"><td>Produkcja i przemysł</td><td>1000+</td><td>Nie lub nie wiem</td><td class="num">9</td><td><span class="lv lv-high">High</span></td><td class="num">24,0 mln zł</td></tr>
+<tr data-level="low"><td>IT i technologia</td><td>1–49</td><td>Tak, wszędzie</td><td class="num">3</td><td><span class="lv lv-low">Low</span></td><td class="num">187 tys. zł</td></tr>
+<tr data-level="mid"><td>IT i technologia</td><td>1–49</td><td>Tylko częściowo</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">220 tys. zł</td></tr>
+<tr data-level="mid"><td>IT i technologia</td><td>1–49</td><td>Nie lub nie wiem</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">253 tys. zł</td></tr>
+<tr data-level="low"><td>IT i technologia</td><td>50–249</td><td>Tak, wszędzie</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">1,3 mln zł</td></tr>
+<tr data-level="mid"><td>IT i technologia</td><td>50–249</td><td>Tylko częściowo</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,5 mln zł</td></tr>
+<tr data-level="high"><td>IT i technologia</td><td>50–249</td><td>Nie lub nie wiem</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">1,8 mln zł</td></tr>
+<tr data-level="mid"><td>IT i technologia</td><td>250–999</td><td>Tak, wszędzie</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">6,1 mln zł</td></tr>
+<tr data-level="mid"><td>IT i technologia</td><td>250–999</td><td>Tylko częściowo</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">7,2 mln zł</td></tr>
+<tr data-level="high"><td>IT i technologia</td><td>250–999</td><td>Nie lub nie wiem</td><td class="num">9</td><td><span class="lv lv-high">High</span></td><td class="num">8,2 mln zł</td></tr>
+<tr data-level="mid"><td>IT i technologia</td><td>1000+</td><td>Tak, wszędzie</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">17,8 mln zł</td></tr>
+<tr data-level="mid"><td>IT i technologia</td><td>1000+</td><td>Tylko częściowo</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">20,9 mln zł</td></tr>
+<tr data-level="high"><td>IT i technologia</td><td>1000+</td><td>Nie lub nie wiem</td><td class="num">9</td><td><span class="lv lv-high">High</span></td><td class="num">24,0 mln zł</td></tr>
+<tr data-level="low"><td>Handel i e-commerce</td><td>1–49</td><td>Tak, wszędzie</td><td class="num">2</td><td><span class="lv lv-low">Low</span></td><td class="num">129 tys. zł</td></tr>
+<tr data-level="low"><td>Handel i e-commerce</td><td>1–49</td><td>Tylko częściowo</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">152 tys. zł</td></tr>
+<tr data-level="mid"><td>Handel i e-commerce</td><td>1–49</td><td>Nie lub nie wiem</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">175 tys. zł</td></tr>
+<tr data-level="low"><td>Handel i e-commerce</td><td>50–249</td><td>Tak, wszędzie</td><td class="num">3</td><td><span class="lv lv-low">Low</span></td><td class="num">904 tys. zł</td></tr>
+<tr data-level="mid"><td>Handel i e-commerce</td><td>50–249</td><td>Tylko częściowo</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,1 mln zł</td></tr>
+<tr data-level="mid"><td>Handel i e-commerce</td><td>50–249</td><td>Nie lub nie wiem</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,2 mln zł</td></tr>
+<tr data-level="low"><td>Handel i e-commerce</td><td>250–999</td><td>Tak, wszędzie</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">4,2 mln zł</td></tr>
+<tr data-level="mid"><td>Handel i e-commerce</td><td>250–999</td><td>Tylko częściowo</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">4,9 mln zł</td></tr>
+<tr data-level="high"><td>Handel i e-commerce</td><td>250–999</td><td>Nie lub nie wiem</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">5,7 mln zł</td></tr>
+<tr data-level="low"><td>Handel i e-commerce</td><td>1000+</td><td>Tak, wszędzie</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">12,3 mln zł</td></tr>
+<tr data-level="mid"><td>Handel i e-commerce</td><td>1000+</td><td>Tylko częściowo</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">14,4 mln zł</td></tr>
+<tr data-level="high"><td>Handel i e-commerce</td><td>1000+</td><td>Nie lub nie wiem</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">16,6 mln zł</td></tr>
+<tr data-level="low"><td>Usługi i inne</td><td>1–49</td><td>Tak, wszędzie</td><td class="num">2</td><td><span class="lv lv-low">Low</span></td><td class="num">173 tys. zł</td></tr>
+<tr data-level="low"><td>Usługi i inne</td><td>1–49</td><td>Tylko częściowo</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">204 tys. zł</td></tr>
+<tr data-level="mid"><td>Usługi i inne</td><td>1–49</td><td>Nie lub nie wiem</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">235 tys. zł</td></tr>
+<tr data-level="low"><td>Usługi i inne</td><td>50–249</td><td>Tak, wszędzie</td><td class="num">3</td><td><span class="lv lv-low">Low</span></td><td class="num">1,2 mln zł</td></tr>
+<tr data-level="mid"><td>Usługi i inne</td><td>50–249</td><td>Tylko częściowo</td><td class="num">5</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,4 mln zł</td></tr>
+<tr data-level="mid"><td>Usługi i inne</td><td>50–249</td><td>Nie lub nie wiem</td><td class="num">7</td><td><span class="lv lv-mid">Mid</span></td><td class="num">1,6 mln zł</td></tr>
+<tr data-level="low"><td>Usługi i inne</td><td>250–999</td><td>Tak, wszędzie</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">5,6 mln zł</td></tr>
+<tr data-level="mid"><td>Usługi i inne</td><td>250–999</td><td>Tylko częściowo</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">6,6 mln zł</td></tr>
+<tr data-level="high"><td>Usługi i inne</td><td>250–999</td><td>Nie lub nie wiem</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">7,6 mln zł</td></tr>
+<tr data-level="low"><td>Usługi i inne</td><td>1000+</td><td>Tak, wszędzie</td><td class="num">4</td><td><span class="lv lv-low">Low</span></td><td class="num">16,5 mln zł</td></tr>
+<tr data-level="mid"><td>Usługi i inne</td><td>1000+</td><td>Tylko częściowo</td><td class="num">6</td><td><span class="lv lv-mid">Mid</span></td><td class="num">19,4 mln zł</td></tr>
+<tr data-level="high"><td>Usługi i inne</td><td>1000+</td><td>Nie lub nie wiem</td><td class="num">8</td><td><span class="lv lv-high">High</span></td><td class="num">22,3 mln zł</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>Nagłówek i ekran startowy</h2>
+  <table>
+    <thead><tr><th>Element</th><th class="c1">Iteracja 1 — kod</th><th class="c2">Iteracja 2 — Tom</th><th class="c3">Iteracja 3 — finalna</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Marka</td><td class="i1 c1">Rubikon</td><td class="i2 c2">Rubikon Ubezpieczenia</td><td class="i3 c3"><strong>Rubikon Ubezpieczenia</strong></td><td class="rz">Pełna nazwa, tagline dostaje własną linię.</td></tr>
+    <tr><td class="el">Tagline</td><td class="i1 c1">Ubezpieczenia dla firm. Zanim coś się wydarzy.</td><td class="i2 c2">Zanim coś się wydarzy.</td><td class="i3 c3"><strong>Zanim coś się wydarzy.</strong></td><td class="rz">Trzy linie schodzą do dwóch.</td></tr>
+    <tr><td class="el">Lead startowy</td><td class="i1 c1">Trzy pytania, pół minuty, bez podawania danych. Wynik od razu.</td><td class="i2 c2 del">usunąć</td><td class="i3 c3"><strong>usunąć</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Dubluje etykiety z ikonkami.</td></tr>
+    <tr><td class="el">Etykieta kłódki</td><td class="i1 c1">Wynik bez podawania danych</td><td class="i2 c2">Wynik od razu, bez podawania danych</td><td class="i3 c3"><strong>Wynik od razu, bez podawania danych</strong></td><td class="rz">Przejmuje obietnicę z usuniętego leada.</td></tr>
+    <tr><td class="el">CTA startowe</td><td class="i1 c1">Sprawdź ryzyko →</td><td class="i2 c2">Sprawdź ryzyko (bez strzałki)</td><td class="i3 c3"><strong>Sprawdź ryzyko</strong></td><td class="rz">Treść zmienia się w miejscu, więc strzałka myli.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Pytania</h2>
+  <table>
+    <thead><tr><th>Element</th><th class="c1">Iteracja 1 — kod</th><th class="c2">Iteracja 2 — Tom</th><th class="c3">Iteracja 3 — finalna</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Licznik</td><td class="i1 c1">Pytanie 1 z 3</td><td class="i2 c2 del">usunąć, pasek na 3 segmenty</td><td class="i3 c3"><strong>usunąć, pasek na 3 segmenty</strong></td><td class="rz">Wizualizacja mówi to samo bez słów.</td></tr>
+    <tr><td class="el">Podpis 1000+</td><td class="i1 c1">organizacja</td><td class="i2 c2">korporacja</td><td class="i3 c3"><strong>korporacja</strong></td><td class="rz">Skala zamiast synonimu.</td></tr>
+    <tr><td class="el">Pytanie o MFA</td><td class="i1 c1">Czy logowanie do poczty i kluczowych systemów wymaga drugiego składnika (MFA)?</td><td class="i2 c2">Czy przy logowaniu do poczty, po wpisaniu hasła, trzeba jeszcze podać kod (MFA)?</td><td class="i3 c3"><strong>Czy przy logowaniu do poczty, po wpisaniu hasła, trzeba jeszcze podać kod (MFA)?</strong></td><td class="rz">Kolejność zdarzeń: hasło, potem kod. Skrót w nawiasie.</td></tr>
+    <tr><td class="el">Podpis do MFA</td><td class="i1 c1">MFA to np. kod z aplikacji lub SMS po wpisaniu hasła.</td><td class="i2 c2">To drugi składnik logowania: po haśle system prosi o kod…</td><td class="i3 c3"><strong>MFA to drugi składnik logowania: po haśle system prosi o kod z aplikacji lub SMS-a.</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Skrót musi paść też w podpisie.</td></tr>
+    <tr><td class="el">Odpowiedzi MFA</td><td class="i1 c1">Tak, wszędzie · Nie wiem / częściowo · Nie</td><td class="i2 c2">Tak, wszędzie · Tylko częściowo · Nie lub nie wiem</td><td class="i3 c3"><strong>Tak, wszędzie · Tylko częściowo · Nie lub nie wiem</strong></td><td class="rz">Każdy kafelek to jeden stan; niewiedza liczy się jak brak.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Wynik — zdania główne</h2>
+  <table>
+    <thead><tr><th>Wariant</th><th class="c1">Iteracja 1 — kod</th><th class="c2">Iteracja 2 — Tom</th><th class="c3">Iteracja 3 — finalna</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Low</td><td class="i1 c1">Podstawy macie. Warto jeszcze sprawdzić kopie zapasowe i plan na incydent.</td><td class="i2 c2">Podstawy działają. Sprawdź jeszcze kopie zapasowe i plan na incydent.</td><td class="i3 c3"><strong>Podstawy działają — i dobrze. Żadne zabezpieczenie nie pokryje jednak przestoju, kar i odzyskiwania danych.</strong><span class="pill kk">konwersja</span></td><td class="rz">Wersja 2 zamykała temat i wypuszczała leada. Ta otwiera lukę, którą zamyka polisa.</td></tr>
+    <tr><td class="el">Mid</td><td class="i1 c1 del">Kilka drzwi zostaje otwartych. Da się je domknąć w parę tygodni.</td><td class="i2 c2">Ryzyko da się wyraźnie obniżyć w kilka tygodni. Zacznij od zabezpieczenia poczty.</td><td class="i3 c3"><strong>Część ryzyka usuniesz w kilka tygodni. Reszty nie — i to jest dokładnie ta część, którą pokrywa polisa.</strong><span class="pill kk">konwersja</span></td><td class="rz">Metafora drzwi była zbyt poetycka; nowa wersja prowadzi do CTA.</td></tr>
+    <tr><td class="el">High + brak lub nie wiem</td><td class="i1 c1">Jeden atak może zatrzymać firmę na tygodnie. Zacznijcie od MFA.</td><td class="i2 c2">Jeden atak może zatrzymać firmę na tygodnie. Zacznij od MFA.</td><td class="i3 c3"><strong>Jeden atak może zatrzymać firmę na tygodnie. Zacznij od MFA i zabezpiecz koszty, których nie unikniesz.</strong></td><td class="rz">Ujednolicenie na „Ty” plus domknięcie do oferty.</td></tr>
+    <tr><td class="el">High + MFA wszędzie</td><td class="i1 c1">Jeden atak może zatrzymać firmę na tygodnie. MFA macie, zajmijmy się resztą.</td><td class="i2 c2">Jeden atak… MFA masz, zajmijmy się resztą.</td><td class="i3 c3 del"><strong>usunąć — wariant nieosiągalny</strong><span class="pill">test 72 scenariuszy</span></td><td class="rz">Przy MFA „tak” maksimum to 6 pkt, High zaczyna się od 8.</td></tr>
+    <tr><td class="el">High + częściowo <span class="pill">nowy</span></td><td class="i1 c1">—</td><td class="i2 c2">—</td><td class="i3 c3"><strong>Jeden atak może zatrzymać firmę na tygodnie. Dokończ MFA i zabezpiecz koszty, których nie unikniesz.</strong></td><td class="rz">Ten wariant realnie zachodzi w 4 scenariuszach i nie ma własnego tekstu.</td></tr>
+    <tr><td class="el">Low przy dużej kwocie <span class="pill">nowy</span></td><td class="i1 c1">—</td><td class="i2 c2">—</td><td class="i3 c3"><strong>Dopisek przy kwocie powyżej 5 mln: „Niskie ryzyko nie znaczy mała strata — decyduje skala firmy.”</strong></td><td class="rz">Rozwiązuje zderzenie „Low” z kwotą 12,3 mln zł.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Wynik — kwota i nota</h2>
+  <table>
+    <thead><tr><th>Element</th><th class="c1">Iteracja 1 — kod</th><th class="c2">Iteracja 2 — Tom</th><th class="c3">Iteracja 3 — finalna</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Poziom</td><td class="i1 c1">Ryzyko niskie / umiarkowane / wysokie</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>bez zmian</strong></td><td class="rz">Twardy wymóg briefu: Low/Mid/High musi być nazwane.</td></tr>
+    <tr><td class="el">Nagłówek kwoty</td><td class="i1 c1">Potencjalna strata przy jednym incydencie</td><td class="i2 c2">Strata przy jednym incydencie</td><td class="i3 c3"><strong>Strata przy jednym incydencie</strong></td><td class="rz">„Potencjalna” osłabia liczbę.</td></tr>
+    <tr><td class="el">Plakietka</td><td class="i1 c1">SZACUNEK ORIENTACYJNY</td><td class="i2 c2 del">usunąć, gwiazdka przy kwocie</td><td class="i3 c3"><strong>usunąć, gwiazdka przy kwocie prowadząca do „Skąd te liczby?”</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Trzy zastrzeżenia na ekranie to dwa za dużo.</td></tr>
+    <tr><td class="el">Nota pod CTA</td><td class="i1 c1">To koszt jednego poważnego incydentu, nie składka ani limit polisy.</td><td class="i2 c2">Tyle kosztuje jeden poważny incydent. To nie jest cena polisy.</td><td class="i3 c3"><strong>Tyle kosztuje jeden poważny incydent. Polisa to ułamek tej kwoty.</strong><span class="pill kk">konwersja</span></td><td class="rz">Zamiast tłumaczyć, czym kwota nie jest, pokazuje różnicę wartości.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Czynniki — branża</h2>
+  <table>
+    <thead><tr><th>Odpowiedź</th><th class="c1">Iteracja 1 — kod</th><th class="c2">Iteracja 2 — Tom</th><th class="c3">Iteracja 3 — finalna</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Finanse</td><td class="i1 c1">Finanse: dane o wysokiej wartości dla przestępców</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>bez zmian</strong></td><td class="rz">Zgodne ze wzorem.</td></tr>
+    <tr><td class="el">Ochrona zdrowia</td><td class="i1 c1">Ochrona zdrowia: najwyższy koszt incydentu ze wszystkich branż</td><td class="i2 c2">Ochrona zdrowia: dane pacjentów podnoszą koszt incydentu najbardziej</td><td class="i3 c3"><strong>Ochrona zdrowia: wyciek danych pacjentów to najdroższy incydent ze wszystkich branż</strong></td><td class="rz">Konkret zamiast rankingu — i realne źródło lęku w tej branży.</td></tr>
+    <tr><td class="el">Produkcja</td><td class="i1 c1">Produkcja: przestój linii kosztuje z każdą godziną</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>bez zmian</strong></td><td class="rz">Wzorcowe zdanie w tym zestawie.</td></tr>
+    <tr><td class="el">IT</td><td class="i1 c1">IT: incydent u Was uderza też w klientów</td><td class="i2 c2">IT: incydent u Ciebie uderza też w klientów</td><td class="i3 c3"><strong>IT: incydent u Ciebie uderza też w klientów</strong></td><td class="rz">Jedna osoba w całym flow.</td></tr>
+    <tr><td class="el">Handel</td><td class="i1 c1">Handel: niższy średni koszt incydentu niż w innych branżach</td><td class="i2 c2 del">Handel: koszt incydentu zwykle niższy niż w innych branżach</td><td class="i3 c3"><strong>Handel: koszt incydentu niższy, ale przestój sklepu zatrzymuje sprzedaż od pierwszej godziny</strong><span class="pill kk">konwersja</span></td><td class="rz">Sama informacja o niższym koszcie działała przeciw konwersji.</td></tr>
+    <tr><td class="el">Usługi</td><td class="i1 c1 del">Usługi: przeciętna ekspozycja, decyduje reszta odpowiedzi</td><td class="i2 c2">Usługi: dane klientów i faktury to typowy cel</td><td class="i3 c3"><strong>Usługi: dane klientów i faktury to częsty cel</strong><span class="pill kk">decyzja KK</span></td><td class="rz">„Częsty” brzmi bardziej alarmująco niż „typowy”.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Czynniki — wielkość i MFA</h2>
+  <table>
+    <thead><tr><th>Odpowiedź</th><th class="c1">Iteracja 1 — kod</th><th class="c2">Iteracja 2 — Tom</th><th class="c3">Iteracja 3 — finalna</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">1–49</td><td class="i1 c1">Mała firma: mniej kont, ale zwykle bez działu IT</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>Mała firma: mniej kont, ale nikogo, kto ich pilnuje</strong><span class="pill kk">decyzja KK</span></td><td class="rz">„Bez działu IT” zostawiało pytanie „i co z tego”. Teraz jest konsekwencja.</td></tr>
+    <tr><td class="el">50–249</td><td class="i1 c1">Średnia firma: więcej kont, często bez osoby od bezpieczeństwa</td><td class="i2 c2">Średnia firma: dziesiątki kont, zwykle bez nikogo od bezpieczeństwa</td><td class="i3 c3"><strong>Średnia firma: dziesiątki kont, najczęściej bez nikogo od bezpieczeństwa</strong><span class="pill kk">decyzja KK</span></td><td class="rz">„Najczęściej” mocniejsze niż „zwykle”.</td></tr>
+    <tr><td class="el">250–999</td><td class="i1 c1">Duża firma: setki kont i dostawców, jeden słaby punkt wystarczy</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>bez zmian</strong></td><td class="rz">Wzorzec dla reszty zestawu.</td></tr>
+    <tr><td class="el">1000+</td><td class="i1 c1">Ponad tysiąc pracowników: skala mnoży koszt incydentu</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>bez zmian</strong></td><td class="rz">—</td></tr>
+    <tr><td class="el">MFA — tak</td><td class="i1 c1 del">MFA działa: zamyka najczęstszą drogę włamania</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>MFA działa: najczęstsza droga włamania zamknięta. Koszt przestoju i kar zostaje</strong><span class="pill kk">konwersja</span></td><td class="rz">Stare zdanie kończyło rozmowę pochwałą. Nowe zostawia powód do kliknięcia.</td></tr>
+    <tr><td class="el">MFA — częściowo</td><td class="i1 c1">Nie wiadomo, czy działa MFA: niepewność też jest ryzykiem</td><td class="i2 c2">MFA tylko częściowo: niezabezpieczone konta wystarczą do włamania</td><td class="i3 c3"><strong>MFA tylko częściowo: jedno niezabezpieczone konto wystarczy do włamania</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Liczba pojedyncza uderza mocniej niż mnoga.</td></tr>
+    <tr><td class="el">MFA — nie lub nie wiem</td><td class="i1 c1">Brak MFA: najczęstsza droga włamania stoi otworem</td><td class="i2 c2">Brak MFA: przejęta skrzynka otwiera drogę do pieniędzy i danych</td><td class="i3 c3"><strong>Brak MFA: jedna przejęta skrzynka otwiera drogę do pieniędzy i danych</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Jak wyżej — „jedna” robi różnicę.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Formularz, potwierdzenie, źródła</h2>
+  <table>
+    <thead><tr><th>Element</th><th class="c1">Iteracja 1 — kod</th><th class="c2">Iteracja 2 — Tom</th><th class="c3">Iteracja 3 — finalna</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Zgoda</td><td class="i1 c1">Wysyłając, zgadzasz się na kontakt Rubikon Ubezpieczenia w sprawie oferty. Dane nie trafią nigdzie indziej.</td><td class="i2 c2">Zgadzasz się na kontakt w sprawie oferty. Dane nie trafią nigdzie indziej.</td><td class="i3 c3"><strong>Zgadzasz się na kontakt w sprawie oferty. Dane nie trafią nigdzie indziej.</strong></td><td class="rz">Krócej o linię, marka jest tuż obok.</td></tr>
+    <tr><td class="el">Potwierdzenie — bez MFA</td><td class="i1 c1">Doradca zadzwoni w ciągu dnia roboczego. Do tego czasu włącz MFA w poczcie.</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>Doradca zadzwoni w ciągu jednego dnia roboczego. Do tego czasu włącz MFA w poczcie.</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Bez liczebnika zdanie brzmi niegramatycznie.</td></tr>
+    <tr><td class="el">Potwierdzenie — z MFA</td><td class="i1 c1">Doradca zadzwoni w ciągu dnia roboczego. Do tego czasu sprawdź, czy kopie zapasowe da się odtworzyć.</td><td class="i2 c2">bez zmian</td><td class="i3 c3"><strong>Doradca zadzwoni w ciągu jednego dnia roboczego. Do tego czasu sprawdź, czy kopie zapasowe da się odtworzyć.</strong></td><td class="rz">Jak wyżej.</td></tr>
+    <tr><td class="el">Wstęp w oknie źródeł</td><td class="i1 c1">Kwota to typowy koszt incydentu dla firmy tej wielkości pomnożony przez branżę i MFA. Mnożnik MFA (±15%) jest naszym założeniem, nie daną z badań.</td><td class="i2 c2">Kwota to szacunek orientacyjny: typowy koszt incydentu… (±15% to nasze założenie)</td><td class="i3 c3"><strong>Kwota to szacunek orientacyjny: typowy koszt incydentu dla firmy tej wielkości, przeliczony przez branżę i MFA. Mnożnik MFA (±15%) to nasze założenie, nie dana z badań.</strong></td><td class="rz">Przejmuje rolę usuniętej plakietki.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="c4">
+  <h2>Iteracja 4 — poprawki z przeklikanych ścieżek</h2>
+  <table>
+    <thead><tr><th>Element</th><th>Było po iteracji 3</th><th>Iteracja 4</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+    <tr><td class="el">Pytanie o MFA</td><td class="i1">Czy przy logowaniu do poczty, po wpisaniu hasła, trzeba jeszcze podać kod (MFA)?</td><td class="i3"><strong>Czy po wpisaniu hasła do poczty trzeba jeszcze podać kod (MFA)?</strong><span class="pill">wdrożone</span></td><td class="rz">Dwa przecinki i łamanie na dwie linie. Ta sama treść, jedna linia, zero przecinków.</td></tr>
+    <tr><td class="el">Dopisek pod kwotą</td><td class="i1">Pokazywany przy każdej kwocie powyżej 5 mln, także przy ryzyku wysokim</td><td class="i3"><strong>Tylko przy poziomie niskim i kwocie powyżej 5 mln</strong><span class="pill kk">błąd w poleceniu</span></td><td class="rz">Warunek dotyczył kwoty zamiast poziomu, więc „niskie ryzyko” padało przy 8,2 mln na poziomie wysokim. Realnie dotyczy 3 scenariuszy z 72.</td></tr>
+    <tr><td class="el">Łamanie zdań</td><td class="i1">Dwa zdania w jednym akapicie, łamane w przypadkowym miejscu</td><td class="i3"><strong>Każde zdanie osobnym wersem, wyśrodkowane</strong></td><td class="rz">Dotyczy zdań wyniku, potwierdzenia i wstępu w formularzu.</td></tr>
+    <tr><td class="el">Etykieta nad kartą</td><td class="i1">Jeden rozmiar na wszystkich ekranach</td><td class="i3"><strong>Start: 26–28 px, półgruby, więcej światła. Pozostałe ekrany bez zmian</strong></td><td class="rz">Na starcie nazywa miejsce, dalej tylko przypomina, gdzie jesteś.</td></tr>
+    <tr><td class="el">Przycisk „Zabezpiecz się”</td><td class="i1">Na całą szerokość karty</td><td class="i3"><strong>320–360 px, wyśrodkowany, pełna szerokość dopiero na telefonie</strong></td><td class="rz">Przycisk na 640 px wygląda jak panel administracyjny i łamie rytm ze startowym „Sprawdź ryzyko”.</td></tr>
+    <tr><td class="el">Nota o źródłach na starcie</td><td class="i1">Szacunek na podstawie raportów IBM, Sophos, Hiscox i CERT Polska.</td><td class="i3"><strong>To samo zdanie z gwiazdką na końcu, klikalne, otwiera „Skąd te liczby?”</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Ten sam zestaw raportów co przy kwocie, więc ten sam znak i to samo okno.</td></tr>
+    <tr><td class="el">Wysokość kart <span class="pill">wycofane</span></td><td class="i1">Każdy ekran z pytaniem ma własną wysokość</td><td class="i3 del">Wspólna minimalna wysokość dla trzech ekranów z pytaniami</td><td class="rz">Usunęło skakanie, ale zrobiło martwą przestrzeń pod „Wróć”, co czyta się jak błąd ładowania.</td></tr>
+    <tr><td class="el">Pozycja karty <span class="pill">zamiast</span></td><td class="i1">Karta wyśrodkowana w pionie, więc przy zmianie treści przesuwa się i góra, i dół</td><td class="i3"><strong>Wysokość zależna od treści, ale górna krawędź karty stoi w tym samym miejscu na wszystkich ekranach. Karta rośnie tylko w dół</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Pasek postępu i nagłówek zostają w miejscu, więc nie ma skoku, a pustka nie powstaje. Standard w kreatorach krok po kroku.</td></tr>
+    <tr><td class="el">„Zmień odpowiedzi”</td><td class="i1">Pełny niebieski, konkuruje z przyciskiem</td><td class="i3"><strong>Kolor stonowany, bliższy szarości, podkreślenie przy najechaniu</strong><span class="pill kk">decyzja KK</span></td><td class="rz">To wyjście awaryjne, nie ścieżka główna. Uwagę mają trzymać kwota, zdanie nad przyciskiem i sam przycisk.</td></tr>
+    <tr><td class="el">Nagłówek, prawa strona</td><td class="i1">„Doradca: 22 123 45 67” jako zwykły tekst, w tle łamana linia</td><td class="i3"><strong>Ikona słuchawki, „Doradca: 22 123 45 67” w jednej linii, ta sama waga, całość jako link tel:. Łamana linia z tła usunięta</strong><span class="pill kk">decyzja KK</span></td><td class="rz">Wyglądał na kontakt, ale nie był klikalny. Linia w tle zgrzytała z logo.</td></tr>
+    <tr><td class="el">Hierarchia na wyniku</td><td class="i1">Czynniki i zdanie konwertujące o podobnej wadze</td><td class="i3"><strong>Czynniki stonowane i mniejsze, zdanie nad przyciskiem większe i mocniejsze</strong></td><td class="rz">Ścieżka wzroku: kwota, cichy dowód, mocny wniosek, przycisk.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="why"><b>Zasada przewodnia iteracji 3:</b> żaden ekran nie może kończyć się pochwałą. Każdy wynik — także Low — zostawia niezamkniętą lukę, którą zamyka polisa. To jedyna zmiana kierunku względem iteracji 2, gdzie copy było poprawne językowo, ale w wariantach pozytywnych wypuszczało leada.</div>
+
+<footer>Rubikon Ubezpieczenia · audyt copy v3 · źródła: src/lib/copy.ts, src/lib/risk.ts, test 72 scenariuszy · Chris Rocket, 21.09.2026</footer>
+</div>
+
+<script>
+(function(){
+  var W={
+    1:"<b>Iteracja 1 — stan z kodu.</b> Pierwszy przebieg Claude Code: teksty poprawne merytorycznie, ale pisane trzema różnymi głosami — ostrzeżenie, opis sytuacji i komentarz do metodologii obok siebie. Kilka zdań mówiło o kalkulatorze zamiast o firmie użytkownika.",
+    2:"<b>Iteracja 2 — propozycje Toma.</b> Jeden wzór dla wszystkich czynników: czynnik, dwukropek, jedna konsekwencja dla firmy. Ujednolicenie na „Ty”, usunięcie dublowań i trzech zastrzeżeń o szacunku. Językowo czysto, ale warianty pozytywne (Low, MFA działa) kończyły się pochwałą i wypuszczały leada.",
+    4:"<b>Iteracja 4 — po przeklikaniu.</b> Krzysztof przeszedł kilka pełnych ścieżek w przeglądarce i wyszły rzeczy niewidoczne w tabeli: dopisek o niskim ryzyku pokazywał się przy wyniku wysokim (błąd w moim poleceniu, nie w kodzie), zdania z dwóch zdań łamały się w przypadkowym miejscu, pytanie o MFA miało dwa zbędne przecinki, a etykieta nad kartą była za mała na ekranie startowym i w sam raz na kolejnych.",
+    6:"<b>Iteracja 6 — test na użytkowniku.</b> Pięć przebiegów audytu przepuściło zdanie „Tę kwotę dzisiaj nosisz na własnym bilansie”. Asia otworzyła kalkulator na telefonie i potknęła się o nie w dziesięć sekund. Przy okazji poprawione dwa terminy użyte wbrew znaczeniu: „kary z umów” i „przeliczony przez branżę”. Jedno zgłoszone zdanie Krzysztof świadomie zostawił bez zmian.",
+    5:"<b>Iteracja 5 — audyt miałkich treści.</b> Krzysztof wyłapał zdanie nad przyciskiem przy ryzyku umiarkowanym: „Część ryzyka usuniesz w kilka tygodni. Reszty nie usuniesz i to właśnie pokrywa polisa.” — masło maślane, zero nowej informacji. Przeszedłem po wszystkich 61 tekstach interfejsu tym samym kryterium. Trzynaście nie przeszło: cztery miałkie, osiem do poprawy, jedno drobne. Nic nie wdrożone, wszystko czeka na decyzję.",
+    3:"<b>Iteracja 3 — wersja finalna.</b> Uwagi Krzysztofa: kalkulator ma konwertować, więc żaden wynik nie może zamykać rozmowy. Do tego test wszystkich 72 scenariuszy wykrył martwy wariant „High + MFA” i zderzenie „Low” z kwotą 12,3 mln zł. Oba rozwiązane."
+  };
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var bar=document.querySelector('.track i'), why=document.getElementById('whyBox');
+  function show(i){
+    steps.forEach(function(s){s.classList.toggle('on', +s.dataset.i===i);});
+    bar.style.width=(i/6*100)+'%';
+    why.innerHTML=W[i];
+    [1,2,3,4,5,6].forEach(function(n){
+      document.querySelectorAll('.c'+n).forEach(function(el){ el.classList.toggle('hide', n>i); });
+    });
+  }
+  steps.forEach(function(s){ s.addEventListener('click', function(){ show(+s.dataset.i); }); });
+  show(6);
+  var fbtns=[].slice.call(document.querySelectorAll('.filters button'));
+  fbtns.forEach(function(b){ b.addEventListener('click', function(){
+    fbtns.forEach(function(x){x.classList.remove('on');}); b.classList.add('on');
+    var f=b.dataset.f;
+    document.querySelectorAll('#matrix tbody tr').forEach(function(tr){
+      tr.classList.toggle('hide', f!=='all' && tr.dataset.level!==f);
+    });
+  });});
+})();
+</script>
+</body>
+</html>
