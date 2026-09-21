@@ -35,7 +35,7 @@ export const copy = {
     factorsTitle: "Co wpłynęło na wynik",
     sentence: (level: Level, mfa: MfaId, _amountLabel?: string) => {
       if (level === "low")
-        return "Tę kwotę dzisiaj nosisz na własnym bilansie. Sprawdź, ile kosztuje przeniesienie jej na polisę."
+        return "Dziś tę stratę pokrywasz sam. Sprawdź, ile kosztuje przeniesienie jej na polisę."
       if (level === "mid")
         return "Nie ma zabezpieczeń bez luk. Polisa to ostatnia warstwa, która działa wtedy, gdy poprzednie zawiodą."
       return mfa === "unknown"
@@ -89,7 +89,7 @@ export const copy = {
   },
   sources: {
     title: "Skąd te liczby?",
-    lead: "Kwota to szacunek orientacyjny: typowy koszt incydentu dla firmy tej wielkości, przeliczony przez branżę i MFA. Mnożnik MFA (±15%) to nasze założenie, nie dana z badań.",
+    lead: "Kwota to szacunek orientacyjny: typowy koszt incydentu dla firmy tej wielkości, skorygowany o branżę i MFA. Mnożnik MFA (±15%) to nasze założenie, nie dana z badań.",
     items: [
       {
         name: "Hiscox, Cyber Readiness Report 2026",

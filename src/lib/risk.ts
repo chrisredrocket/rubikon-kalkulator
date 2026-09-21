@@ -56,7 +56,7 @@ export const INDUSTRIES: IndustryOption[] = [
     label: "IT i technologia",
     points: 2,
     multiplier: 1.1,
-    factor: { direction: "up", text: "IT: incydent u Ciebie zatrzymuje systemy klientów i uruchamia kary z umów" },
+    factor: { direction: "up", text: "IT: incydent u Ciebie zatrzymuje systemy klientów i naraża Cię na kary umowne" },
   },
   {
     id: "retail",
